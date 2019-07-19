@@ -1,19 +1,18 @@
-#pragma once
-//±£»¤Í·ÎÄ¼ş£¬·ÀÖ¹¶àÖØ°üº¬
+//ä¿æŠ¤å¤´æ–‡ä»¶ï¼Œé˜²æ­¢å¤šé‡åŒ…å«
 #ifndef _MYUTILITY_H
 #define _MYUTILITY_H
 
 #include<iostream>
 
-//¹¤¾ßº¯Êı£¬ÓÃÀ´½«Êı×éµÄÈİÁ¿À©´óÒ»±¶
+//å·¥å…·å‡½æ•°ï¼Œç”¨æ¥å°†æ•°ç»„çš„å®¹é‡æ‰©å¤§ä¸€å€
 template<class T>
 void change_size1D(T*& a, const int old_size, const int new_size);
 
-//¹¤¾ßº¯Êı£¬ÓÃÀ´½«Êı×éµÄÈİÁ¿À©´óÒ»±¶
+//å·¥å…·å‡½æ•°ï¼Œç”¨æ¥å°†æ•°ç»„çš„å®¹é‡æ‰©å¤§ä¸€å€
 template<class T>
 void change_size1D(T*& a, const int old_size, const int new_size)
 {
-	//Èç¹ûĞÂµÄÊı×é´óĞ¡Ğ¡ÓÚÁã£¬¾ÍÅ×³öÒì³£
+	//å¦‚æœæ–°çš„æ•°ç»„å¤§å°å°äºé›¶ï¼Œå°±æŠ›å‡ºå¼‚å¸¸
 	if (new_size < 0)throw "New length must be >= 0";
 
 	T* temp = new T[new_size];
