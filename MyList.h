@@ -1,5 +1,5 @@
 /*
-链表，分为节点和链表两个类
+链表，分为节点，链表，迭代器三个类
 节点有两个私有属性：数据区、链接区
 */
 
@@ -12,12 +12,15 @@
 
 template<class T>
 class MyList;//前置声明，因为节点类里面要把MyList设置成友元类，而它还没有定义
+template<class T>
+class MyIterator;//同理，前置声明迭代器类
 
 //节点类
 template<class T>
 class ListNode
 {
-friend class MyList<T>;//把链表类设为友元类，则数据成员可以让链表类调用
+	friend class MyList<T>;//把链表类设为友元类，则数据成员可以让链表类调用
+	friend class MyIterator<T>;//把迭代器类设为友元类
 private:
 	ListNode(T);//参数为数据元素，构造函数为私有，只能用链表类来调用，不能外界创建Node类的对象
 	T data;//数据区，存放元素
@@ -28,6 +31,7 @@ private:
 template<class T>
 class MyList
 {
+	friend class MyIterator<T>;//把迭代器类设为友元类
 public:
 	MyList();//默认构造函数，初始指针为0
 	void insert_node(T);//插入节点
@@ -37,6 +41,22 @@ public:
 	void show();//测试函数，用来展示节点的数据
 private:
 	ListNode<T>* first;//私有数据成员为：指向第一个节点的指针，注意加上类型<T>
+};
+
+//迭代器类
+template<class T>
+class MyIterator
+{
+public:
+	MyIterator(const MyList<T>& ls) :list(ls), current(ls.first) {}//构造函数
+	bool not_null();//用来判断指向的当前节点是否为空
+	bool next_not_null();//判断下一个节点是否为空
+	T* first();//返回指针，指向链表的第一个节点
+	T* next();//返回当前节点的下一个节点的指针，同时current移到下一个节点
+private:
+	//私有数据成员：链表和指向当前节点的指针
+	const MyList<T>& list;
+	ListNode<T>* current;
 };
 
 /*
@@ -160,6 +180,51 @@ void MyList<T>::show()
 		}
 		std::cout << "->";
 	}
+}
+
+/*
+迭代器类的成员函数的实现
+*/
+
+//迭代器指向的当前节点是否为空
+template<class T>
+bool MyIterator<T>::not_null()
+{
+	if (current)//如果指向当前节点的指针不为NULL，就说明不为空
+		return true;
+	else
+		return false;
+}
+
+//迭代器指向的当前节点的下一个节点是否为空
+template<class T>
+bool MyIterator<T>::next_not_null()
+{
+	if (current && current->next)//如果当前节点和下一个节点的指针不为NULL，就说明不为空
+		return true;
+	else
+		return false;
+}
+
+//返回一个指针，它指向所属链表的第一个节点的数据
+template<class T>
+T* MyIterator<T>::first()
+{
+	if (list.first)//如果链表的初始指针first不为空，就返回first指向的节点的数据域的地址
+		return &list.first->data;
+	else
+		return 0;
+}
+
+//返回一个指针，指向当前节点的下一个节点的数据，同时current向后移
+template<class T>
+T* MyIterator<T>::next()
+{
+	if (current == 0)//如果当前节点为空，就不存在下一个节点了，直接返回空指针
+		return 0;
+	current = current->next;//让当前指针指向下一个节点
+	return &current->data;//返回数据域的地址
+	//注意！！此时迭代器的数据成员已经改变，不必像STL中的迭代器一样对迭代器进行加减
 }
 
 #endif
