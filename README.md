@@ -4,4 +4,4 @@
 * MyList
 * LoopList
 * MyStack
-* MyDeque
+* MyQueue
