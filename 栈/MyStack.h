@@ -2,7 +2,7 @@
 #ifndef _MYSTACK_H
 #define _MYSTACK_H
 
-#include"my_Utility.h"//头文件里面包含另一个头文件
+#include"my_Utility.h"//需要包含另一个头文件，用来扩大数组容量
 
 //MyStack类的声明
 template<class T>
