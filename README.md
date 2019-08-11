@@ -7,4 +7,4 @@
 * [LoopList](环形链表/用法说明.md)
 * [DbList](双向链表/用法说明.md)
 * [BinaryTree](二叉搜索树/用法说明.md)
-* [MaxHeap](堆/MaxHeap.md)
+* [MaxHeap](堆/用法说明.md)
